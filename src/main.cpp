@@ -1,18 +1,31 @@
 #include <Arduino.h>
+#include <ldr.h>
 
-// put function declarations here:
-int myFunction(int, int);
+#include "config/config.h"
 
-void setup() {
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+LDR ldr(LDR_PIN, LDR_THRESHOLD, LDR_REFERENCE);
+
+int ldrValue = 0;
+int ldrVoltage = 0;
+bool isLdrBright = false;
+
+void setup()
+{
+  Serial.begin(115200);
 }
 
-void loop() {
-  // put your main code here, to run repeatedly:
-}
+void loop()
+{
+  ldrValue = ldr.readRaw();
+  ldrVoltage = ldr.readVoltage();
+  isLdrBright = ldr.isBright();
 
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
+  Serial.print("LDR: ");
+  Serial.print(ldrValue);
+  Serial.print(" | V: ");
+  Serial.print(ldrVoltage, 2);
+  Serial.print(" | Bright: ");
+  Serial.println(isLdrBright ? "Yes" : "No");
+
+  delay(1000);
 }

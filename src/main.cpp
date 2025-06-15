@@ -1,7 +1,7 @@
+#include "config.h"
+
 #include <Arduino.h>
 #include <ldr.h>
-
-#include "config/config.h"
 
 LDR ldr(LDR_PIN, LDR_THRESHOLD, LDR_REFERENCE);
 

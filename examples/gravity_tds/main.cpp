@@ -10,8 +10,8 @@ void setup()
 {
     Serial.begin(115200);
     gravityTds.setPin(TdsSensorPin);
-    gravityTds.setAref(5.0);  //reference voltage on ADC, default 5.0V on Arduino UNO
-    gravityTds.setAdcRange(1024);  //1024 for 10bit ADC;4096 for 12bit ADC
+    gravityTds.setAref(3.3);  //reference voltage on ADC, default 3.3V on ESP32
+    gravityTds.setAdcRange(4096);  //4096 for 12bit ADC
     gravityTds.begin();  //initialization
 }
 

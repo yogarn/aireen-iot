@@ -1,31 +1,27 @@
-#include "config.h"
+#include <EEPROM.h>
+#include <gravity_tds.h>
 
-#include <Arduino.h>
-#include <ldr.h>
+#define TdsSensorPin A1
+GravityTDS gravityTds;
 
-LDR ldr(LDR_PIN, LDR_THRESHOLD, LDR_REFERENCE);
-
-int ldrValue = 0;
-int ldrVoltage = 0;
-bool isLdrBright = false;
+float temperature = 25,tdsValue = 0;
 
 void setup()
 {
-  Serial.begin(115200);
+    Serial.begin(115200);
+    gravityTds.setPin(TdsSensorPin);
+    gravityTds.setAref(3.3);  //reference voltage on ADC, default 5.0V on Arduino UNO
+    gravityTds.setAdcRange(4096);  //1024 for 10bit ADC;4096 for 12bit ADC
+    gravityTds.begin();  //initialization
 }
 
 void loop()
 {
-  ldrValue = ldr.readRaw();
-  ldrVoltage = ldr.readVoltage();
-  isLdrBright = ldr.isBright();
-
-  Serial.print("LDR: ");
-  Serial.print(ldrValue);
-  Serial.print(" | V: ");
-  Serial.print(ldrVoltage, 2);
-  Serial.print(" | Bright: ");
-  Serial.println(isLdrBright ? "Yes" : "No");
-
-  delay(1000);
+    //temperature = readTemperature();  //add your temperature sensor and read it
+    gravityTds.setTemperature(temperature);  // set the temperature and execute temperature compensation
+    gravityTds.update();  //sample and calculate 
+    tdsValue = gravityTds.getTdsValue();  // then get the value
+    Serial.print(tdsValue,0);
+    Serial.println("ppm");
+    delay(1000);
 }

@@ -73,6 +73,7 @@ void GravityTDS::setKvalueAddress(int address)
 
 void GravityTDS::begin()
 {
+  EEPROM.begin(64);
   pinMode(this->pin, INPUT);
   readKValues();
 }
@@ -215,6 +216,7 @@ void GravityTDS::ecCalibration(byte mode)
       if (ecCalibrationFinish)
       {
         EEPROM_write(kValueAddress, kValue);
+        EEPROM.commit();
         Serial.print(F(">>>Calibration Successful,K Value Saved"));
       }
       else

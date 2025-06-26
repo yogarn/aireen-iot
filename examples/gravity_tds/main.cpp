@@ -1,23 +1,24 @@
+#include "config.h"
+
 #include <EEPROM.h>
 #include <gravity_tds.h>
 
-#define TdsSensorPin A1
 GravityTDS gravityTds;
 
-float temperature = 25,tdsValue = 0;
+float temperature = TDS_TEMPERATURE;
+float tdsValue = 0;
 
 void setup()
 {
     Serial.begin(115200);
-    gravityTds.setPin(TdsSensorPin);
-    gravityTds.setAref(3.3);  //reference voltage on ADC, default 3.3V on ESP32
-    gravityTds.setAdcRange(4096);  //4096 for 12bit ADC
-    gravityTds.begin();  //initialization
+    gravityTds.setPin(TDS_PIN);
+    gravityTds.setAref(TDS_AREF);
+    gravityTds.setAdcRange(TDS_ADC_RANGE);
+    gravityTds.begin();
 }
 
 void loop()
 {
-    //temperature = readTemperature();  //add your temperature sensor and read it
     gravityTds.setTemperature(temperature);  // set the temperature and execute temperature compensation
     gravityTds.update();  //sample and calculate 
     tdsValue = gravityTds.getTdsValue();  // then get the value

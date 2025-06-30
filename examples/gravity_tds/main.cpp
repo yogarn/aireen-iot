@@ -2,6 +2,7 @@
 
 #include <EEPROM.h>
 #include <gravity_tds.h>
+#include "config.h"
 
 GravityTDS gravityTds;
 

@@ -1,7 +1,8 @@
 #include "Arduino.h"
 #include "turbidty.h"
+#include "config.h"
 
-TurbiditySensor turbSensor(A1); // Turbidity sensor connected to analog pin A1
+TurbiditySensor turbSensor(TURBIDITY_PIN);
 
 void setup() {
     Serial.begin(9600);
@@ -13,5 +14,5 @@ void loop() {
     Serial.print("Turbidity (NTU): ");
     Serial.println(ntu);
 
-    delay(1000); // Read every 1 second
+    delay(1000);
 }

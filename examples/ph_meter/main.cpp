@@ -1,6 +1,7 @@
 #include "ph_meter.h"
+#include "config.h"
 
-PHMeter phSensor(A0);
+PHMeter phSensor(PHMETER_PIN);
 
 void setup() {
     Serial.begin(9600);

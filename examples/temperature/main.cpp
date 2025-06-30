@@ -1,7 +1,8 @@
 #include "Arduino.h"
 #include "temperature.h"
+#include "config.h"
 
-TemperatureSensor tempSensor(2); 
+TemperatureSensor tempSensor(TEMP_SENSOR_PIN); 
 
 void setup() {
     Serial.begin(9600);
@@ -13,5 +14,5 @@ void loop() {
     Serial.print("Temperature (°C): ");
     Serial.println(tempC);
 
-    delay(1000); // Read every 1 second
+    delay(1000);
 }

@@ -7,6 +7,7 @@
 // pin map
 #define LDR_PIN 35
 #define TDS_PIN 34
+#define PH_PIN A1
 
 // hardware constants
 #define TDS_AREF 3.3  // reference voltage on ADC, default 3.3V on ESP32

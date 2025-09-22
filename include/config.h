@@ -22,6 +22,7 @@
 #define MQTT_HOST ""
 #define MQTT_PORT 1883
 #define MQTT_CLIENT "esp1"
+#define MQTT_TOPIC "airin/esp32"
 
 // wifi config
 #define WIFI_SSID ""

@@ -6,6 +6,7 @@
 #include <ldr.h>
 #include <mqtt_client.h>
 #include <WiFi.h>
+#include <ArduinoJson.h>
 
 GravityTDS gravityTds;
 LDR ldr(LDR_PIN, LDR_THRESHOLD, LDR_REFERENCE);
@@ -39,7 +40,7 @@ void setup() {
 
     mqtt.begin();
     mqtt.setCallback(messageCallback);
-    mqtt.subscribe("/topic"); // adjust topic as needed in future
+    mqtt.subscribe(MQTT_TOPIC); // adjust topic as needed in future
 
     gravityTds.setPin(TDS_PIN);
     gravityTds.setAref(3.3);
@@ -56,20 +57,16 @@ void loop() {
     ldrVoltage = ldr.readVoltage();
     isLdrBright = ldr.isBright();
 
-    Serial.print("TDS (ppm): ");
-    Serial.println(tdsValue, 0);
-    Serial.print("LDR: ");
-    Serial.print(ldrValue);
-    Serial.print(" | V: ");
-    Serial.print(ldrVoltage, 2);
-    Serial.print(" | Bright: ");
-    Serial.println(isLdrBright ? "Yes" : "No");
-    Serial.println("------------------------");
+    JsonDocument doc;
+    doc["tds"] = tdsValue;
+    doc["ldr"] = ldrValue;
+    char buffer[128];
+    serializeJson(doc, buffer);
 
-    mqtt.publish("sensors/tds", String(tdsValue).c_str());
-    mqtt.publish("sensors/ldr", String(ldrValue).c_str());
+    Serial.println(buffer);
+    mqtt.publish(MQTT_TOPIC, buffer);
 
     mqtt.loop();
 
-    delay(1000);
+    delay(5000);
 }

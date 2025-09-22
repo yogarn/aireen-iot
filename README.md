@@ -20,15 +20,14 @@ It is part of a larger initiative to build a self-sustaining hydroponic farming 
 
 The table below lists the default ESP32 pin assignments as defined in `include/config.h`. Adjust as needed.
 
-| ESP32 Pin | Sensor/Actuator |
-
-| :--- | :--- |
-| 3.3v | LDR sensor primary pin |
-|      | TDS sensor VCC pin |
-| GND  | LDR sensor secondary pin (via resistor) |
-|      | TDS sensor GND pin |
-| GPIO35 | LDR sensor secondary pin |
-| GPIO36 | TDS sensor signal pin |
+| ESP32 Pin | Sensor/Actuator                         |
+|-----------|-----------------------------------------|
+| 3.3v      | LDR sensor primary pin                  |
+| 3.3v      | TDS sensor VCC pin                      |
+| GND       | LDR sensor secondary pin (via resistor) |
+| GND       | TDS sensor GND pin                      |
+| GPIO35    | LDR sensor secondary pin                |
+| GPIO36    | TDS sensor signal pin                   |
 
 ## Future Works
 - [x] Interfacing LDR sensor
